@@ -1,20 +1,25 @@
-function fetchBooks() {
-  const url = "https://anapioficeandfire.com/api/characters/583";  // 1. Define the API endpoint
-  return fetch(url)  // 2. Make a fetch request to the API endpoint
-    .then(response => response.json())  // 3. Convert the response to JSON
-    .then(data => renderBooks(data.aliases))  // 4. Call the renderBooks function with the aliases data
-    .catch(error => console.log(error));  // 5. Handle any errors that occur during the fetch request
+document.addEventListener('DOMContentLoaded',fetchBooks);
+
+function renderBooks(books) {
+  const main = document.querySelector('main') 
+  books.forEach(book => {   
+  const h2 = document.createElement('h2')    
+  h2.innerHTML = book.name    
+    main.appendChild(h2)  
+  })
+
 }
 
-function renderBooks(aliases) {
-  const main = document.querySelector('main');  // 6. Find the <main> element on the page
-  aliases.forEach(alias => {  // 7. Loop over each alias in the aliases array
-    const h2 = document.createElement('h2');  // 8. Create a new <h2> element for the alias
-    h2.innerHTML = alias;  // 9. Set the innerHTML of the <h2> element to the alias text
-    main.appendChild(h2);  // 10. Add the <h2> element to the <main> element on the page
-  });
-}
+ function fetchBooks() {
+  // To pass the tests, don't forget to return your fetch!
+  return fetch('https://anapioficeandfire.com/api/books')
+  .then(response => response.json())
+  .then(data => renderBooks(data));
 
-document.addEventListener('DOMContentLoaded', function() {  // 11. Wait for the page to finish loading
-  fetchBooks();  // 12. Call the fetchBooks function
-});
+}
+fetchBooks()
+
+function initialize(){
+  fetchBooks()
+}
+initialize()
